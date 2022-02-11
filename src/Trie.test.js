@@ -25,6 +25,13 @@ describe("Trie", () => {
 		expect(charNode.isWord).toBe(true);
 	});
 
+	test("search", () => {
+		expect(trie.search("major")).toBe(true);
+		expect(trie.search("majo")).toBe(false);
+		expect(trie.search("macro")).toBe(true);
+		expect(trie.search("apple")).toBe(false);
+	});
+
 	test("remove", () => {
 		trie.remove("major");
 

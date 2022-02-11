@@ -32,6 +32,22 @@ class Trie {
 		this.insertNode(charNode, word, index + 1);
 	}
 
+	search(word) {
+		if (!word.length) return null;
+		return this.searchNode(this.root, word.toLowerCase(), null);
+	}
+
+	searchNode(current, word, index) {
+		if (index === word.length)
+			return current.isWord;
+
+		const char = word.charAt(index);
+		const charNode = current.children.get(char);
+
+		if (!charNode) return false;
+		else return this.searchNode(charNode, word, index + 1);
+	}
+
 	remove(word) {
 		if (!word.length) return null;
 		this.removeNode(this.root, word.toLowerCase(), 0);
