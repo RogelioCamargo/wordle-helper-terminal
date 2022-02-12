@@ -25,7 +25,7 @@ describe("Trie", () => {
 		expect(charNode.isWord).toBe(true);
 	});
 
-	test("search", () => {
+	test.only("search", () => {
 		expect(trie.search("major")).toBe(true);
 		expect(trie.search("majo")).toBe(false);
 		expect(trie.search("macro")).toBe(true);
