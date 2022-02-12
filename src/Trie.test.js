@@ -29,6 +29,7 @@ describe("Trie", () => {
 
 	test.only("search", () => {
 		expect(trie.search("m....")).toEqual(["major", "macro", "maker", "miner"]);
+		expect(trie.search("..")).toBeNull();
 		expect(trie.search("m....", "i")).toEqual(["major", "macro", "maker"]);
 		expect(trie.search("m....", "", "ao")).toEqual(["major", "macro"]);
 		expect(trie.search("ma...")).toEqual(["major", "macro", "maker"]);

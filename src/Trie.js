@@ -62,7 +62,7 @@ class Trie {
 			}
 		};
 
-		if (!word.length) return null;
+		if (word.length < 5) return null;
 		searchNode(this.root, "", 0);
 		return results;
 	}
