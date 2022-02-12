@@ -33,18 +33,33 @@ class Trie {
 	}
 
 	search(word) {
-		const searchNode = (current, word, index) => {
-			if (index === word.length) return current.isWord;
-
-			const char = word.charAt(index);
-			const charNode = current.children.get(char);
-
-			if (!charNode) return false;
-			else return searchNode(charNode, word, index + 1);
+		const lowerCaseWord = word.toLowerCase();
+		const results = [];
+		const searchNode = (current, chars, index) => {
+			if (index === lowerCaseWord.length) {
+				results.push(chars);
+				return null;
+			}
+			
+			const char = lowerCaseWord.charAt(index);
+			if (char === ".") {
+				const keys = current.children.keys();
+				for (const key of keys) {
+					const charNode = current.children.get(key);
+					searchNode(charNode, chars + key, index + 1);
+				}
+			}
+			else {
+				const charNode = current.children.get(char);
+				if (!charNode) return null;
+				else searchNode(charNode, chars + char, index + 1);
+			}
 		};
 
 		if (!word.length) return null;
-		return searchNode(this.root, word.toLowerCase(), null);
+		searchNode(this.root, "", 0);
+		console.log(results);
+		return results;
 	}
 
 	remove(word) {
