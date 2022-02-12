@@ -32,7 +32,8 @@ class Trie {
 		insertNode(this.root, word.toLowerCase(), 0);
 	}
 
-	search(word) {
+	search(word, grayWords = "") {
+		const grayRegex = new RegExp(`[${grayWords}]`);
 		const lowerCaseWord = word.toLowerCase();
 		const results = [];
 		const searchNode = (current, chars, index) => {
@@ -40,16 +41,17 @@ class Trie {
 				results.push(chars);
 				return null;
 			}
-			
+
 			const char = lowerCaseWord.charAt(index);
 			if (char === ".") {
 				const keys = current.children.keys();
 				for (const key of keys) {
+					if (grayWords && grayRegex.test(key)) continue;
 					const charNode = current.children.get(key);
 					searchNode(charNode, chars + key, index + 1);
 				}
-			}
-			else {
+			} else {
+				if (grayWords && grayRegex.test(char)) return null;
 				const charNode = current.children.get(char);
 				if (!charNode) return null;
 				else searchNode(charNode, chars + char, index + 1);

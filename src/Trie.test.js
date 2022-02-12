@@ -5,6 +5,7 @@ describe("Trie", () => {
 	trie.insert("major");
 	trie.insert("macro");
 	trie.insert("miner");
+	trie.insert("maker");
 
 	test("insert", () => {
 		let charNode = trie.root.children.get("m");
@@ -27,10 +28,12 @@ describe("Trie", () => {
 	});
 
 	test.only("search", () => {
-		expect(trie.search("m....")).toEqual(["major", "macro", "miner"]);
-		expect(trie.search("ma...")).toEqual(["major", "macro"]);
+		expect(trie.search("m....")).toEqual(["major", "macro", "maker", "miner"]);
+		expect(trie.search("m....", "i")).toEqual(["major", "macro", "maker"]);
+		expect(trie.search("ma...")).toEqual(["major", "macro", "maker"]);
 		expect(trie.search("about")).toEqual([]);
-		expect(trie.search("ma..r")).toEqual(["major"]);
+		expect(trie.search("maker")).toEqual(["maker"]);
+		expect(trie.search("m...r", "ij")).toEqual(["maker"]);
 	});
 
 	test("remove", () => {
