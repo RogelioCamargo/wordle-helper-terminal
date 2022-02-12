@@ -32,12 +32,16 @@ class Trie {
 		insertNode(this.root, word.toLowerCase(), 0);
 	}
 
-	search(word, grayWords = "") {
-		const grayRegex = new RegExp(`[${grayWords}]`);
+	search(word, grayChars = "", yelllowChars = "") {
+		const grayRegex = new RegExp(`[${grayChars}]`);
+		const yellowList = yelllowChars.split("");
 		const lowerCaseWord = word.toLowerCase();
 		const results = [];
 		const searchNode = (current, chars, index) => {
 			if (index === lowerCaseWord.length) {
+				for (const yellowCh of yellowList)
+					if (!chars.includes(yellowCh)) return null;
+				
 				results.push(chars);
 				return null;
 			}
@@ -46,12 +50,12 @@ class Trie {
 			if (char === ".") {
 				const keys = current.children.keys();
 				for (const key of keys) {
-					if (grayWords && grayRegex.test(key)) continue;
+					if (grayChars && grayRegex.test(key)) continue;
 					const charNode = current.children.get(key);
 					searchNode(charNode, chars + key, index + 1);
 				}
 			} else {
-				if (grayWords && grayRegex.test(char)) return null;
+				if (grayChars && grayRegex.test(char)) return null;
 				const charNode = current.children.get(char);
 				if (!charNode) return null;
 				else searchNode(charNode, chars + char, index + 1);
@@ -60,7 +64,6 @@ class Trie {
 
 		if (!word.length) return null;
 		searchNode(this.root, "", 0);
-		console.log(results);
 		return results;
 	}
 
