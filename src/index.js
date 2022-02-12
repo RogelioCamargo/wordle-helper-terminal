@@ -3,7 +3,7 @@ const Trie = require("./Trie");
 const prompt = require("prompt-sync")({ sigint: true });
 
 const trie = new Trie();
-const words = read("./wordle_words.txt");
+const words = read("./words.txt");
 for (const word of words) trie.insert(word);
 
 console.log("TRIE READY");
