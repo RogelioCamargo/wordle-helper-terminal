@@ -32,37 +32,52 @@ class Trie {
 		insertNode(this.root, word.toLowerCase(), 0);
 	}
 
-	search(word, grayChars = "", yelllowChars = "") {
-		const grayRegex = new RegExp(`[${grayChars}]`);
-		const yellowList = yelllowChars.split("");
-		const lowerCaseWord = word.toLowerCase();
+	search(query = ".", validSet = ".", invalidSet = "") {
+		// ensure expression is lowercase (all words are stored in lowercase form)
+		query = query.toLowerCase();
+		if (query === ".") query = ".....";
+		if (validSet === ".") validSet = ".....";
+
+		if (query.length < 5 || validSet.length < 5) return null;
+		const validList = validSet.split("");
+		// create a regexp from invalid chars
+		const invalidRegExp = new RegExp(`[${invalidSet}]`);
 		const results = [];
-		const searchNode = (current, chars, index) => {
-			if (index === lowerCaseWord.length) {
-				for (const yellowCh of yellowList)
-					if (!chars.includes(yellowCh)) return null;
-				
-				results.push(chars);
+
+		const searchNode = (current, path, index) => {
+			if (index === query.length) {
+				for (let idx = 0; idx < validList.length; idx++) {
+					const validChar = validList[idx];
+					if (validChar === ".") continue;
+					const indexOfValidChar = path.indexOf(validChar);
+					// validChar should be found in path AND
+					// it should not be in the same index as validList
+					if (indexOfValidChar === -1 || indexOfValidChar === idx) return null;
+				}
+
+				// if criteria is met, push path(or word) to the results array
+				results.push(path);
 				return null;
 			}
 
-			const char = lowerCaseWord.charAt(index);
+			const char = query.charAt(index);
+			// "." represents any character, so must vist every path
 			if (char === ".") {
-				const keys = current.children.keys();
-				for (const key of keys) {
-					if (grayChars && grayRegex.test(key)) continue;
-					const charNode = current.children.get(key);
-					searchNode(charNode, chars + key, index + 1);
+				const charKeys = current.children.keys();
+				for (const charKey of charKeys) {
+					// should not go down the path of an invalid char
+					if (invalidSet && invalidRegExp.test(charKey)) continue;
+					const charNode = current.children.get(charKey);
+					searchNode(charNode, path + charKey, index + 1);
 				}
 			} else {
-				if (grayChars && grayRegex.test(char)) return null;
+				if (invalidSet && invalidRegExp.test(char)) return null;
 				const charNode = current.children.get(char);
 				if (!charNode) return null;
-				else searchNode(charNode, chars + char, index + 1);
+				else searchNode(charNode, path + char, index + 1);
 			}
 		};
 
-		if (word.length < 5) return null;
 		searchNode(this.root, "", 0);
 		return results;
 	}

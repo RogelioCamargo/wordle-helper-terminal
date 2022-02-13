@@ -29,21 +29,21 @@ do {
 			break;
 		default:
 			wordleGreenCharacters = prompt("Query: ");
-			wordleGrayCharacters = prompt("Characters Don't Exits (Grays): ");
 			wordleYellowCharacters = prompt("Characters Exist (Yellow): ");
+			wordleGrayCharacters = prompt("Characters Don't Exits (Grays): ");
 	}
-	console.log("\n--- FILTERS ---")
-	console.log(wordleGreenCharacters);
-	console.log(wordleGrayCharacters || ".....");
+	console.log("\n--- FILTERS ---");
+	console.log(wordleGreenCharacters !== "." ? wordleGreenCharacters : ".....");
 	console.log(wordleYellowCharacters || ".....");
+	console.log(wordleGrayCharacters || ".....");
 	const results = trie.search(
 		wordleGreenCharacters,
-		wordleGrayCharacters,
-		wordleYellowCharacters
+		wordleYellowCharacters,
+		wordleGrayCharacters
 	);
-	console.log("\n--- RESULTS ---")
+	console.log("\n--- RESULTS ---");
 	console.log(results);
-	console.log("\n--- MENU ---")
+	console.log("\n--- MENU ---");
 	userOption = prompt("Option: ");
 } while (userOption !== ":q");
 
