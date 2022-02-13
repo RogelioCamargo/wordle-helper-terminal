@@ -2,17 +2,18 @@ const { read } = require("./utils");
 const prompt = require("prompt-sync")({ sigint: true });
 const words = read("./words.txt");
 const Trie = require("./Trie");
+// create new trie
 const trie = new Trie();
 
-// Set Up Trie
+// set up trie
 for (const word of words) trie.insert(word);
 console.log("--- TRIE READY ---");
 console.log(`There are a total of ${trie.getCount()} words in the Trie!`);
 
-let wordleGreenCharacters = "";
+let query = "";
 let validSet = "";
-let wordleYellowCharacters = [];
-let wordleGrayCharacters = "";
+let validSetList = [];
+let invalidSet = "";
 let userOption = "";
 
 // display greetings and starter words
@@ -20,30 +21,25 @@ displayStarters();
 do {
 	switch (userOption) {
 		case "q":
-			wordleGreenCharacters = prompt("Query: ");
+			query = prompt("Query: ");
 			break;
 		case "y":
 			validSet = prompt("Valid Characters (Yellow): ");
-			if (validSet === ".") validSet = ".....";
-			else wordleYellowCharacters.push(validSet);
+			if (validSet && validSet !== ".") validSetList.push(validSet);
 			break;
 		case "g":
-			wordleGrayCharacters = prompt("Invalid Characters (Grays): ");
+			invalidSet = prompt("Invalid Characters (Grays): ");
 			break;
 		default:
-			wordleGreenCharacters = prompt("Query: ");
+			query = prompt("Query: ");
 			validSet = prompt("Valid Characters (Yellow): ");
 			if (validSet === ".") validSet = ".....";
-			wordleYellowCharacters.push(validSet);
-			wordleGrayCharacters = prompt("Invalid Characters (Grays): ");
+			validSetList.push(validSet);
+			invalidSet = prompt("Invalid Characters (Gray): ");
 	}
 	// display fitlers
 	displayFilters();
-	const results = trie.search(
-		wordleGreenCharacters,
-		wordleYellowCharacters,
-		wordleGrayCharacters
-	);
+	const results = trie.search(query, validSetList, invalidSet);
 	// display results
 	console.log("\n--- RESULTS ---");
 	console.log(results);
@@ -52,7 +48,7 @@ do {
 	userOption = prompt("Option: ");
 } while (userOption !== ":q");
 
-// Destory Trie
+// destroy trie
 for (const word of words) trie.remove(word);
 console.log("\n---TRIE DESTROYED---");
 
@@ -72,8 +68,7 @@ function displayMenu() {
 
 function displayFilters() {
 	console.log("\n--- FILTERS ---");
-	console.log(wordleGreenCharacters !== "." ? wordleGreenCharacters : ".....");
-	for(const set of wordleYellowCharacters)
-		console.log(set);
-	console.log(wordleGrayCharacters || ".....");
+	console.log(query !== "." ? query : ".....");
+	for (const set of validSetList) console.log(set);
+	console.log(invalidSet || ".....");
 }
