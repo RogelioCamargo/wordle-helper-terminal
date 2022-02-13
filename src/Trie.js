@@ -8,7 +8,10 @@ class TrieNode {
 class Trie {
 	constructor() {
 		this.root = new TrieNode();
+		this.count = 0;
 	}
+
+	getCount() { return this.count };
 
 	insert(word) {
 		const insertNode = (current, word, index) => {
@@ -30,6 +33,7 @@ class Trie {
 
 		if (!word.length) return null;
 		insertNode(this.root, word.toLowerCase(), 0);
+		this.count++;
 	}
 
 	search(query = ".", validSet = ".", invalidSet = "") {
@@ -104,6 +108,7 @@ class Trie {
 
 		if (!word.length) return null;
 		removeNode(this.root, word.toLowerCase(), 0);
+		this.count--;
 	}
 }
 

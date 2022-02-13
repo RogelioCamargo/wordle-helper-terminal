@@ -25,6 +25,8 @@ describe("Trie", () => {
 		charNode = charNode.children.get("r");
 		expect(charNode).toBeDefined();
 		expect(charNode.isWord).toBe(true);
+
+		expect(trie.getCount()).toBe(4);
 	});
 
 	test.only("search", () => {
@@ -61,5 +63,6 @@ describe("Trie", () => {
 
 		trie.remove("miner");
 		trie.remove("maker");
+		expect(trie.getCount()).toBe(0);
 	});
 });

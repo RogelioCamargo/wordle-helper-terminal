@@ -7,6 +7,7 @@ const trie = new Trie();
 // Set Up Trie
 for (const word of words) trie.insert(word);
 console.log("--- TRIE READY ---");
+console.log(`There are a total of ${trie.getCount()} words in the Trie!`);
 
 let wordleGreenCharacters = "";
 let validSet = "";
