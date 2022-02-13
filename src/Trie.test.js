@@ -31,8 +31,8 @@ describe("Trie", () => {
 		expect(trie.search("m....")).toEqual(["major", "macro", "maker", "miner"]);
 		expect(trie.search("..")).toBeNull();
 		expect(trie.search("m....", ".", "i")).toEqual(["major", "macro", "maker"]);
-		expect(trie.search("m....", "..o..")).toEqual(["major", "macro"]);
-		expect(trie.search("m....", "....o")).toEqual(["major"]);
+		expect(trie.search("m....", ["..o.."])).toEqual(["major", "macro"]);
+		expect(trie.search("m....", ["....o"])).toEqual(["major"]);
 		expect(trie.search("ma...")).toEqual(["major", "macro", "maker"]);
 		expect(trie.search("about")).toEqual([]);
 		expect(trie.search("maker")).toEqual(["maker"]);
@@ -58,5 +58,8 @@ describe("Trie", () => {
 
 		expect(trie.root.children.get("m")).toBeUndefined();
 		expect(trie.root.children.size).toBe(0);
+
+		trie.remove("miner");
+		trie.remove("maker");
 	});
 });

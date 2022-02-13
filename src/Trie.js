@@ -36,23 +36,26 @@ class Trie {
 		// ensure expression is lowercase (all words are stored in lowercase form)
 		query = query.toLowerCase();
 		if (query === ".") query = ".....";
-		if (validSet === ".") validSet = ".....";
+		if (validSet === ".") validSet = ["....."];
 
-		if (query.length < 5 || validSet.length < 5) return null;
-		const validList = validSet.split("");
+		if (query.length < 5) return null;
+		const validList = validSet.map((set) => set.split(""));
 		// create a regexp from invalid chars
 		const invalidRegExp = new RegExp(`[${invalidSet}]`);
 		const results = [];
 
 		const searchNode = (current, path, index) => {
 			if (index === query.length) {
-				for (let idx = 0; idx < validList.length; idx++) {
-					const validChar = validList[idx];
-					if (validChar === ".") continue;
-					const indexOfValidChar = path.indexOf(validChar);
-					// validChar should be found in path AND
-					// it should not be in the same index as validList
-					if (indexOfValidChar === -1 || indexOfValidChar === idx) return null;
+				for (const list of validList) {
+					for (let idx = 0; idx < list.length; idx++) {
+						const validChar = list[idx];
+						if (validChar === ".") continue;
+						const indexOfValidChar = path.indexOf(validChar);
+						// validChar should be found in path AND
+						// it should not be in the same index as validList
+						if (indexOfValidChar === -1 || indexOfValidChar === idx)
+							return null;
+					}
 				}
 
 				// if criteria is met, push path(or word) to the results array
