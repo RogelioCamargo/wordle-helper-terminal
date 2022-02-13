@@ -12,30 +12,39 @@ let wordleGreenCharacters = "";
 let wordleGrayCharacters = "";
 let wordleYellowCharacters = "";
 let userOption = "";
-// "q": "Reset Query"
-// "g": "Reset Gray Character Set"
-// "y": "Reset Green Charcter Set"
+
+const displayMenu = () => {
+	console.log("\n--- MENU ---");
+	console.log(" q - Update Query");
+	console.log(" g - Update Invalid Set");
+	console.log(" y - Update Valid Set");
+	console.log(":q - Exit Loop");
+};
+
+const displayFilters = () => {
+	console.log("\n--- FILTERS ---");
+	console.log(wordleGreenCharacters !== "." ? wordleGreenCharacters : ".....");
+	console.log(wordleYellowCharacters || ".....");
+	console.log(wordleGrayCharacters || ".....");
+};
 
 do {
 	switch (userOption) {
 		case "q":
 			wordleGreenCharacters = prompt("Query: ");
 			break;
-		case "g":
-			wordleGrayCharacters = prompt("Characters Don't Exits (Grays): ");
-			break;
 		case "y":
-			wordleYellowCharacters = prompt("Characters Exist (Yellow): ");
+			wordleYellowCharacters = prompt("Valid Characters (Yellow): ");
+			break;
+		case "g":
+			wordleGrayCharacters = prompt("Invalid Characters (Grays): ");
 			break;
 		default:
 			wordleGreenCharacters = prompt("Query: ");
-			wordleYellowCharacters = prompt("Characters Exist (Yellow): ");
-			wordleGrayCharacters = prompt("Characters Don't Exits (Grays): ");
+			wordleYellowCharacters = prompt("Valid Characters (Yellow): ");
+			wordleGrayCharacters = prompt("Invalid Characters (Grays): ");
 	}
-	console.log("\n--- FILTERS ---");
-	console.log(wordleGreenCharacters !== "." ? wordleGreenCharacters : ".....");
-	console.log(wordleYellowCharacters || ".....");
-	console.log(wordleGrayCharacters || ".....");
+	displayFilters();
 	const results = trie.search(
 		wordleGreenCharacters,
 		wordleYellowCharacters,
@@ -43,7 +52,8 @@ do {
 	);
 	console.log("\n--- RESULTS ---");
 	console.log(results);
-	console.log("\n--- MENU ---");
+	// display menu and options
+	displayMenu();
 	userOption = prompt("Option: ");
 } while (userOption !== ":q");
 
