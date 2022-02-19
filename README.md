@@ -26,85 +26,85 @@ then, the invalid charcters filter will be all those letters
 ## Example
 ### Saturday, February 19, 2022:
 
---- TRIE READY ---
-There are a total of 12972 words in the Trie!
+--- TRIE READY ---  
+There are a total of 12972 words in the Trie!  
 
---- STARTERS ---
-Many people found success starting with the following words:
-RATES
-TEARS
-TARES
-STARE
-STEAR
-STRAY
+--- STARTERS ---  
+Many people found success starting with the following words:  
+RATES  
+TEARS  
+TARES  
+STARE  
+STEAR  
+STRAY  
 
-Query: ..i..
-Valid Characters (Yellow): ....s
-Invalid Characters (Gray): tearcmghofund
+Query: ..i..  
+Valid Characters (Yellow): ....s  
+Invalid Characters (Gray): tearcmghofund  
 
---- FILTERS ---
-..i..
-....s
-tearcmghofund
+--- FILTERS ---  
+..i..  
+....s  
+tearcmghofund  
 
---- RESULTS ---
-[
-  'spiky', 'spiks',
-  'spill', 'spivs',
-  'swill', 'swiss',
-  'swizz', 'slily',
-  'slips', 'skill',
-  'skips', 'skivy',
-  'bliss'
-]
+--- RESULTS ---  
+[  
+  'spiky', 'spiks',  
+  'spill', 'spivs',  
+  'swill', 'swiss',  
+  'swizz', 'slily',  
+  'slips', 'skill',  
+  'skips', 'skivy',  
+  'bliss'  
+]  
 
---- MENU ---
- q - Update Query
- y - Update Valid Set
- g - Update Invalid Set
-:q - Exit Loop
+--- MENU ---  
+ q - Update Query  
+ y - Update Valid Set  
+ g - Update Invalid Set  
+:q - Exit Loop  
 
-Option: q
-Query: s.i..
+Option: q  
+Query: s.i..  
 
---- FILTERS ---
-s.i..
-....s
-tearcmghofund
+--- FILTERS ---  
+s.i..  
+....s  
+tearcmghofund  
 
---- RESULTS ---
-[
-  'spiky', 'spiks',
-  'spill', 'spivs',
-  'swill', 'swiss',
-  'swizz', 'slily',
-  'slips', 'skill',
-  'skips', 'skivy'
-]
+--- RESULTS ---  
+[  
+  'spiky', 'spiks',  
+  'spill', 'spivs',  
+  'swill', 'swiss',  
+  'swizz', 'slily',  
+  'slips', 'skill',  
+  'skips', 'skivy'  
+]  
 
---- MENU ---
- q - Update Query
- y - Update Valid Set
- g - Update Invalid Set
-:q - Exit Loop
+--- MENU ---  
+ q - Update Query  
+ y - Update Valid Set  
+ g - Update Invalid Set  
+:q - Exit Loop  
 
-Option: g
-Invalid Characters (Grays): tearcmghofundpky
+Option: g  
+Invalid Characters (Grays): tearcmghofundpky  
 
---- FILTERS ---
-s.i..
-....s
-tearcmghofundpky
+--- FILTERS ---  
+s.i..  
+....s  
+tearcmghofundpky  
 
---- RESULTS ---
-[ 'swill', 'swiss', 'swizz' ]
+--- RESULTS ---  
+[ 'swill', 'swiss', 'swizz' ]  
 
---- MENU ---
- q - Update Query
- y - Update Valid Set
- g - Update Invalid Set
-:q - Exit Loop
+--- MENU ---  
+ q - Update Query  
+ y - Update Valid Set  
+ g - Update Invalid Set  
+:q - Exit Loop  
 
-Option: :q
+Option: :q  
 
 ---TRIE DESTROYED---
