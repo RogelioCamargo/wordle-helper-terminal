@@ -4,7 +4,7 @@
 I created a trie using 12,972 words and with the help of some filters, today's word can be discovered!
 
 If you get the following: 
-⬛⬛🟩⬛⬛ 
+🟩⬛🟩⬛⬛ 
 
 then, the query filter will be:
 s.i.. [where s and i iare in the correct position]
